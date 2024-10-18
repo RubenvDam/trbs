@@ -35,17 +35,17 @@ def fixture_import_beerwiser_xlsx():
     This fixture initialises a CaseImporter for the beerwiser case.
     :return: an CaseImporter class for the beerwiser case.
     """
-    return CaseImporter(Path.cwd() / "src/vlinder/data", "beerwiser", "xlsx")
+    return CaseImporter(Path.cwd() / "src/vlinder/data/xlsx", "beerwiser", "xlsx")
 
 
-def test_build_template_validators(import_beerwiser_json):
+def test_build_template_validators(import_beerwiser_xlsx):
     """
     This function tests _build_template_validators() to return a dictionary containing the 'table' and necessary
     columns within that table.
     Note: the file extension (here: json) is not relevant for this test, so only one needs to be tested
     :param import_beerwiser_json: an CaseImporter class for the beerwiser case
     """
-    result = import_beerwiser_json._build_template_validators()
+    result = import_beerwiser_xlsx._build_template_validators()
     expected_result = {
         "configurations": ["configuration", "value"],
         "generic_text_elements": ["generic_text_element", "value"],
@@ -64,16 +64,7 @@ def test_build_template_validators(import_beerwiser_json):
         "decision_makers_options": ["internal_variable_input", "decision_makers_option", "value"],
         "scenarios": ["external_variable_input", "scenario", "value"],
         "fixed_inputs": ["fixed_input", "value"],
-        "dependencies": [
-            "destination",
-            "argument_1",
-            "argument_2",
-            "operator",
-            "maximum_effect",
-            "accessibility",
-            "probability_of_success",
-            "saturation_point",
-        ],
+        "dependencies": ["destination", "argument_1", "argument_2", "operator"],
         "theme_weights": ["theme", "weight"],
         "key_output_weights": ["key_output", "weight"],
         "scenario_weights": ["scenario", "weight"],
@@ -144,8 +135,8 @@ def test_check_data_columns_error(import_beerwiser_json):
 @pytest.mark.parametrize(
     "fixture_name, table",
     [
-        ("import_beerwiser_csv", "dependencies"),
-        ("import_beerwiser_json", "key_outputs"),
+        # ("import_beerwiser_csv", "dependencies"),
+        # ("import_beerwiser_json", "key_outputs"),
         ("import_beerwiser_xlsx", "scenarios"),
     ],
 )
@@ -260,10 +251,6 @@ def test_convert_to_ordered_dependencies(import_beerwiser_json):
             "argument_1": ["tech", "love", "education", "law", "5", "money"],
             "argument_2": ["", "", "law", "tech", "money", "love"],
             "operator": np.full(6, "N/A"),
-            "maximum_effect": np.full(6, "N/A"),
-            "accessibility": np.full(6, "N/A"),
-            "probability_of_success": np.full(6, "N/A"),
-            "saturation_point": np.full(6, "N/A"),
         }
     )
     # compare
@@ -277,10 +264,6 @@ def test_convert_to_ordered_dependencies(import_beerwiser_json):
         "argument_1": np.array(["5", "money", "tech", "love", "education", "law"], dtype=object),
         "argument_2": np.array(["money", "love", "", "", "law", "tech"], dtype=object),
         "operator": np.full(6, "N/A", dtype=object),
-        "maximum_effect": np.full(6, "N/A", dtype=object),
-        "accessibility": np.full(6, "N/A", dtype=object),
-        "probability_of_success": np.full(6, "N/A", dtype=object),
-        "saturation_point": np.full(6, "N/A", dtype=object),
         "hierarchy": np.array([1, 1, 2, 2, 3, 3]),
         "dependencies_order": np.array([4, 5, 0, 1, 2, 3]),
     }

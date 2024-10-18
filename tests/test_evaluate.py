@@ -101,35 +101,6 @@ def test_find_index(evaluate_beerwiser, key, value, expected_result):
     assert result == expected_result
 
 
-@pytest.mark.parametrize(
-    "arg1, args, expected_result",
-    [
-        (
-            10,
-            {"saturation_point": 30, "accessibility": 0.9, "probability_of_success": 0.80, "maximum_effect": 0.5},
-            0.12,
-        ),
-        (
-            10,
-            {"saturation_point": 5, "accessibility": 0.95, "probability_of_success": 0.85, "maximum_effect": 0.7},
-            0.565,
-        ),
-    ],
-)
-def test_squeeze(evaluate_beerwiser, arg1, args, expected_result):
-    """
-    This function tests _squeeze to return a correctly calculated values using the Squeezed * operator. Tested for both
-    when min(x,y) / saturation_point > 1 and min(x,y) / saturation_point < 1.
-    :param evaluate_beerwiser: an Evaluate() class for Beerwiser
-    :param arg1: first argument that is used for all operators (including squeezed)
-    :param arg2: second argument that is used for all operators (including squeezed)
-    :param args: dictionary containing arguments used solely for squeezed
-    :param expected_result: expected value of evaluated squeeze function
-    """
-    result = round(evaluate_beerwiser._squeeze(arg1, args), 3)
-    assert result == expected_result
-
-
 def test_get_key_outputs(evaluate_beerwiser):
     """
     This function tests _get_key_outputs to return a dictionary of type: {KO1: value, KO2: value, ...}.

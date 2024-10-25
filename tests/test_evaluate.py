@@ -74,6 +74,14 @@ def test_create_value_dict(evaluate_beerwiser):
         "Current production cost": 7500000.0,
         "Current water use": 15000000.0,
         "Water unit cost": 0.05,
+        "AR_acc": 0.95,
+        "AR_me": 0.48,
+        "AR_pos": 0.9,
+        "AR_sp": 300000,
+        "WURWE_acc": 1.0,
+        "WURWE_me": 0.5,
+        "WURWE_pos": 1.0,
+        "WURWE_sp": 275000,
     }
 
     assert result == expected_result
@@ -82,10 +90,9 @@ def test_create_value_dict(evaluate_beerwiser):
 @pytest.mark.parametrize(
     "key, value, expected_result",
     [
-        ("key_output_unit", "hl/year", 1),
+        ("key_output_theme", "Planet", 1),
         ("decision_makers_options", "Equal spread", 0),
-        ("operator", "*", 3),
-        ("saturation_point", 275000.0, 1),
+        ("operator", "*", 5),
     ],
 )
 def test_find_index(evaluate_beerwiser, key, value, expected_result):

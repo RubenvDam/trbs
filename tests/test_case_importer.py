@@ -35,7 +35,7 @@ def fixture_import_beerwiser_xlsx():
     This fixture initialises a CaseImporter for the beerwiser case.
     :return: an CaseImporter class for the beerwiser case.
     """
-    return CaseImporter(Path.cwd() / "src/vlinder/data/xlsx", "beerwiser", "xlsx")
+    return CaseImporter(Path.cwd() / "src/vlinder/data", "beerwiser", "xlsx")
 
 
 def test_build_template_validators(import_beerwiser_xlsx):
